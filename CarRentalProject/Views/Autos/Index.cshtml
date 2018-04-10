@@ -4,12 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+
+
+@*<table class="table">
     <thead>
         <tr>
                 <th>
@@ -77,4 +75,129 @@
         </tr>
 }
     </tbody>
-</table>
+</table>*@
+
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Free Cars-Online Website Template | New :: w3layouts</title>
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='//fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
+    
+
+</head>
+<body>
+    <div class="header-bg">
+        <div class="wrap">
+            <div class="h-bg">
+                <div class="total">
+                    <div class="header">
+
+                        <div class="clear"></div>
+                        <div class="header-bot">
+                            <div class="logo">
+                                <img src="~/images/logo1.png" alt="" />
+                            </div>
+                            <p>
+                                <a asp-action="Create">Create New</a>
+                            </p>
+                            <div class="search">
+                                <input type="text" class="textbox" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
+                                <button class="gray-button"><span>Search</span></button>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="banner-top">
+                        <div class="header-bottom">
+                            <div class="header_bottom_right_images">
+                                <div class="content-wrapper">
+                                    <div class="content-top">
+                                        <div class="about_wrapper">
+                                            <h1>Specials</h1>
+                                        </div>
+                                        <div class="text">
+@foreach (var item in Model)
+{
+    <div class="grid_1_of_3 images_1_of_3">
+        <div class="grid_1">
+            @if (item.ImageData != null)
+                {
+                <img src="data:image/jpg;base64,@(Convert.ToBase64String(item.ImageData))" />
+            }
+            <div class="grid_desc">
+                <p class="title"><span>@Html.DisplayFor(modelItem => item.Brand)</span> <span>@Html.DisplayFor(modelItem => item.Model) </span></p>
+                
+                <div class="price" style="height: 19px;">
+                    <span class="reducedfrom">$@Html.DisplayFor(modelItem => item.PricePerDay)</span>
+                    
+                </div>
+                <div class="cart-button">
+                    <a asp-action="Details" asp-route-id="@item.ID" class="button"><span>Details</span></a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div><div class="clear"></div>
+    </div>
+}
+                                           
+                                            
+                                        </div>
+                                                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="header-para">
+                                <div class="categories">
+                                    <div class="list-categories">
+                                        <div class="first-list">
+                                            <div class="div_2"><a asp-controller="Autos" asp-action="Index">Cars</a></div>
+                                            <div class="div_img">
+                                                <img src="~/images/car1.jpg" alt="Cars" title="Cars" width="60" height="39">
+                                            </div><div class="clear"></div>
+                                        </div>
+                                       
+                                    </div>
+                                    
+                                    <div class="box-title">
+                                        <h1><span class="title-icon"></span><a href="#">Specials</a></h1>
+                                    </div>
+                                    <div class="section group example">
+                                        <div class="col_1_of_2 span_1_of_2">
+                                            <img src="~/images/pic21.jpg" alt="" />
+                                            <img src="~/images/pic24.jpg" alt="" />
+                                            <img src="~/images/pic25.jpg" alt="" />
+                                            <img src="~/images/pic27.jpg" alt="" />
+                                        </div>
+                                        <div class="col_1_of_2 span_1_of_2">
+                                            <img src="~/images/pic22.jpg" alt="" />
+                                            <img src="~/images/pic23.jpg" alt="" />
+                                            <img src="~/images/pic26.jpg" alt="" />
+                                            <img src="~/images/pic28.jpg" alt="" />
+                                        </div><div class="clear"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
