@@ -83,26 +83,23 @@
     <a asp-controller="Rents" asp-action="Create" asp-route-id="@Model.ID">Get Rent</a>
     </div>
 
+
 <script>
     var data = [];
     </script>
 
-@{var orders = Context.Rents.Where(x => x.CarID == Model.ID);
-    List<string> dates = new List<string>();
-    }
+@{var orders = Context.Rents.Where(x => x.CarID == Model.ID);  }
 @foreach (var ord in @orders)
 {
-    for (var ind = ord.StartDate.Day; ind <= ord.EndDate.Day; ind++)
+    for (var ind = ord.StartDate; ind <= ord.EndDate; ind = ind.AddDays(1))
     {
-        var start = ord.StartDate;
-        string resp = start.Year + "-" + start.Month + "-" + ind;
+        string resp = ind.Year + "-" + ind.Month + "-" + ind.Day;
 
-    <script>
-        var str = "@resp";
-        var obj = { "date": str + "" };
-        alert(str);
-        data.push(obj);
-    </script>
+        <script>
+            var str = "@resp";
+            var obj = { "date": str + "" };
+            data.push(obj);
+        </script>
     }
 }
 

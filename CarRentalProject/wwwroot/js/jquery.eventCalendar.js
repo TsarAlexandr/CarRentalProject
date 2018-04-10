@@ -103,11 +103,12 @@
 			flags.wrap.on('click','.eventCalendar-day a',function(e){
 			//flags.wrap.find('.eventCalendar-day a').live('click',function(e){
                 e.preventDefault();
-                alert("It is here!!!");
+                var element = document.getElementById("inputArea");
+
 				var year = flags.wrap.attr('data-current-year'),
 					month = flags.wrap.attr('data-current-month'),
-					day = $(this).parent().attr('rel');
-
+                    day = $(this).parent().attr('rel');
+                element.innerText = day + "." + month + "." + year;
 				getEvents(flags, eventsOpts, false, year, month,day, "day");
 			});
 			flags.wrap.on('click','.eventCalendar-monthTitle', function(e){
