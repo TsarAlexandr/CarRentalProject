@@ -1,0 +1,84 @@
+﻿@model CarRentalProject.Models.Auto
+@inject CarRentalProject.Data.ApplicationDbContext Context
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Auto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Brand)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PassengerCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PassengerCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PricePerDay)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PricePerDay)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Volume)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Volume)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageData)
+        </dt>
+        <dd>
+            @if (Model.ImageData != null)
+            {
+                <img style="width:100%; height:270px; " src="data:image/jpg;base64,@(Convert.ToBase64String(Model.ImageData))" />
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<div>
+    <a asp-controller="Rents" asp-action="Create" asp-route-id="@Model.ID">Get Rent</a>
+    </div>
+
+@{var orders = Context.Rents.Where(x => x.CarID == Model.ID);}
+
+@foreach (var ord in @orders)
+{
+    @Html.DisplayFor(modelOrd => ord.StartDate);
+    <p>------------</p>
+    @Html.DisplayFor(modelOrd => ord.EndDate);
+    <br/><br />
+}
