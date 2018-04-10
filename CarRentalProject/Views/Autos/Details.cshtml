@@ -5,7 +5,7 @@
     Layout = null;
     ViewData["Title"] = "Details";
 }
-   
+
 <head>
 
     <meta charset="UTF-8">
@@ -15,78 +15,203 @@
 <h2>Details</h2>
 
 
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Free Cars-Online Website Template | New :: w3layouts</title>
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='//fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
 
 
-<div>
-    <h4>Auto</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Brand)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Brand)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Model)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PassengerCount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PassengerCount)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PricePerDay)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PricePerDay)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Volume)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Volume)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageData)
-        </dt>
-        <dd>
-            @if (Model.ImageData != null)
-            {
-                <img style="width:100%; height:270px; " src="data:image/jpg;base64,@(Convert.ToBase64String(Model.ImageData))" />
-            }
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+</head>
+<body>
+    <div class="header-bg">
+        <div class="wrap">
+            <div class="h-bg">
+                <div class="total">
+                    <div class="header">
 
-<div>
-    <a asp-controller="Rents" asp-action="Create" asp-route-id="@Model.ID">Get Rent</a>
+                        <div class="clear"></div>
+                        <div class="header-bot">
+                            <div class="logo">
+                                <img src="~/images/logo1.png" alt="" />
+                            </div>
+                            <div class="search">
+                                <input type="text" class="textbox" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
+                                <button class="gray-button"><span>Search</span></button>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="banner-top">
+                        <div class="header-bottom">
+                            <div class="header_bottom_right_images">
+                                <div class="about_wrapper">
+                                    <h1><span>@Html.DisplayFor(modelItem => Model.Brand)</span> <span>@Html.DisplayFor(modelItem => Model.Model) </span></h1>
+                                </div>
+
+                                <div class="about-group">
+                                    <div class="about-top">
+                                        <div class="grid images_3_of_1">
+                                           @if (Model.ImageData != null)
+                                           {
+                                            <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.ImageData))" />
+                                           }
+                                        </div>
+                                        <div class="grid span_2_of_3">
+                                            <div class="price">@Html.DisplayFor(model => model.PricePerDay) $/day </div>
+                                            <div class="clear"></div>
+                                            <div class="features_table">
+                                                <div class="line">
+                                                    <div class="left">Passengers:</div>
+                                                    <div class="right">@Html.DisplayFor(model => model.PassengerCount)</div>
+                                                </div>
+                                                <div class="line">
+                                                    <div class="left">Year:</div>
+                                                    <div class="right">@Html.DisplayFor(model => model.Year)</div>
+                                                </div>
+                                                
+                                                <div class="line">
+                                                    <div class="left">Volume:</div>
+                                                    <div class="right">@Html.DisplayFor(model => model.Volume) cm³ </div>
+                                                </div>
+                                                
+                                                <div class="line">
+                                                    <div class="left">Color:</div>
+                                                    <div class="right">@Html.DisplayFor(model => model.Color)</div>
+                                                </div>
+                                                <div>
+                                                    <a asp-controller="Rents" asp-action="Create" asp-route-id="@Model.ID" class="button">Get Rent</a>
+                                                </div>
+                                            </div>
+                                            </div><div class="clear"></div>
+                                        <div id="eventCalendar" style="width: 300px; margin: 5px 2px;"></div>
+                                        
+                                    </div>
+                                    
+
+
+                                
+                        </div>
+                    </div>
+                    <div class="header-para">
+                        <div class="categories">
+                            <div class="list-categories">
+                                <div class="first-list">
+                                    <div class="div_2"><a asp-controller="Autos" asp-action="Index">Cars</a></div>
+                                    <div class="div_img">
+                                        <img src="images/car1.jpg" alt="Cars" title="Cars" width="60" height="39">
+                                    </div><div class="clear"></div>
+                                </div>
+                            </div>
+
+                            <div class="box-title">
+                                <h1><span class="title-icon"></span><a href="#">Branches</a></h1>
+                            </div>
+                            <div class="section group example">
+                                <div class="col_1_of_2 span_1_of_2">
+                                    <img src="~/images/pic21.jpg" alt="" />
+                                    <img src="~/images/pic24.jpg" alt="" />
+                                    <img src="~/images/pic25.jpg" alt="" />
+                                    <img src="~/images/pic27.jpg" alt="" />
+                                </div>
+                                <div class="col_1_of_2 span_1_of_2">
+                                    <img src="~/images/pic22.jpg" alt="" />
+                                    <img src="~/images/pic23.jpg" alt="" />
+                                    <img src="~/images/pic26.jpg" alt="" />
+                                    <img src="~/images/pic28.jpg" alt="" />
+                                </div><div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+
+                </div>
+            </div>
+        </div>
     </div>
+    </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+@*<div>
+        <h4>Auto</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Brand)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Brand)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Model)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Model)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PassengerCount)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PassengerCount)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PricePerDay)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PricePerDay)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Year)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Year)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Color)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Volume)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Volume)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageData)
+            </dt>
+            <dd>
+                @if (Model.ImageData != null)
+                {
+                    <img style="width:100%; height:270px; " src="data:image/jpg;base64,@(Convert.ToBase64String(Model.ImageData))" />
+                }
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    <div>
+        <a asp-controller="Rents" asp-action="Create" asp-route-id="@Model.ID">Get Rent</a>
+    </div>*@
 
 
 <script>
     var data = [];
-    </script>
+</script>
 
 @{var orders = Context.Rents.Where(x => x.CarID == Model.ID);  }
 @foreach (var ord in @orders)
@@ -105,17 +230,17 @@
 
 
 
-<div id="eventCalendar" style="width: 300px; margin: 50px auto;"></div>
+
 <script src="~/js/jquery.min.js"></script>
 <script src="~/js/moment.js"></script>
 <script src="~/js/jquery.eventCalendar.js"></script>
 <script>
-    $(function () {
-        $('#eventCalendar').eventCalendar({
-            jsonData: data,
-            jsonDateFormat: 'human',
-            eventsLimit: 0
+            $(function () {
+                $('#eventCalendar').eventCalendar({
+                    jsonData: data,
+                    jsonDateFormat: 'human',
+                    eventsLimit: 0
 
-        });
-    });
+                });
+            });
 </script>

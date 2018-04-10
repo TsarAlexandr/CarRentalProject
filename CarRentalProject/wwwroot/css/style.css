@@ -5,6 +5,28 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 */
 /* reset */
+.features_table {
+    padding: 0 0 19px;
+}
+
+.features_table .line {
+        overflow: hidden;
+        color: #798FA1;
+        padding: 7px 15px 8px;
+    }
+
+        .features_table .line .left {
+            font-family: 'PTSansBold',Arial,sans-serif;
+            font-weight: bold;
+            color: #293848;
+            float: left;
+            width: 185px;
+        }
+
+        .features_table .line .right {
+            float: left;
+            width: 205px;
+        }
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
 article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
 ol,ul{list-style:none;margin:0;padding:0;}
@@ -330,8 +352,12 @@ p.title1 {
 	line-height: 1.8em;
 }
 .price {
-	padding: 5% 0;
-	font-size: 15px;
+    font-size: 28px;
+    color: #FFB01F;
+    line-height: 32px;
+    font-family: 'PTSansBold',Arial,sans-serif;
+    font-weight: bold;
+    padding-bottom: 19px;
 }
 span.reducedfrom {
 	margin-right: 8%;
@@ -506,7 +532,7 @@ span.actual {
 }
 .grid:first-child { margin-left: 0; }
 .images_3_of_1 {
-	width:30.2%;
+	width:auto;
 }
 .span_2_of_3{
 	width: 68.1%;
@@ -1538,6 +1564,10 @@ ul.list-2 li span a {
 	.page-not-found h1 {
 		font-size: 6em;
 	}
+
+    
+
+    
 }
 	
 
