@@ -65,10 +65,21 @@ namespace CarRentalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int id, [Bind("StartDate,EndDate")] Rents rents)
         {
+            var otherRents = _context.Rents.Where(x => x.CarID == id);
+            foreach (var rent in otherRents)
+            {
+                if (((rents.StartDate >= rent.StartDate) && (rents.StartDate <= rent.EndDate)) ||
+                    ((rents.EndDate >= rent.StartDate) && (rents.EndDate <= rent.EndDate)))
+                {
+                    ModelState.AddModelError("StartDate", "Unfortunatly, this date are taken. Please select another one");
+                    break;
+                }
+            }
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
                 rents.CarID = id;
+                
                 rents.UserID = user?.Id;
                 _context.Add(rents);
                 await _context.SaveChangesAsync();

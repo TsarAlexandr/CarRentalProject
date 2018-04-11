@@ -27,6 +27,18 @@ namespace CarRentalProject.Controllers
             return View(await _context.Auto.ToListAsync());
         }
 
+        public async Task<IActionResult> Index1(String Search)
+        {
+            if (!String.IsNullOrEmpty(Search))
+            {
+                var list = await _context.Auto.Where(x => (x.Model.Contains(Search) || x.Brand.ToString().Contains(Search))).ToListAsync();
+                return View("Index", list);
+            }
+               
+            return View("Index", await _context.Auto.ToListAsync());
+
+        }
+
         // GET: Autos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
