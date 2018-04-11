@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using CarRentalProject.Models;
 using CarRentalProject.Data;
-using CarRentalProject.Services;
 using System.Net.Mail;
 using System.Net;
 
@@ -26,26 +21,20 @@ namespace CarRentalProject.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
 
-        private readonly IEmailSender _emailSender;
-        private readonly ILogger _logger;
-        private readonly UrlEncoder _urlEncoder;
+        
 
         private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
 
         public ManageController(
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
-          IEmailSender emailSender,
-          ILogger<ManageController> logger,
-          UrlEncoder urlEncoder,
+          
           ApplicationDbContext context
            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
-            _logger = logger;
-            _urlEncoder = urlEncoder;
+            
             _context = context;
         }
 
@@ -129,32 +118,7 @@ namespace CarRentalProject.Controllers
             }
         }
 
-        private string FormatKey(string unformattedKey)
-        {
-            var result = new StringBuilder();
-            int currentPosition = 0;
-            while (currentPosition + 4 < unformattedKey.Length)
-            {
-                result.Append(unformattedKey.Substring(currentPosition, 4)).Append(" ");
-                currentPosition += 4;
-            }
-            if (currentPosition < unformattedKey.Length)
-            {
-                result.Append(unformattedKey.Substring(currentPosition));
-            }
-
-            return result.ToString().ToLowerInvariant();
-        }
-
-        private string GenerateQrCodeUri(string email, string unformattedKey)
-        {
-            return string.Format(
-                AuthenicatorUriFormat,
-                _urlEncoder.Encode("CarRentalProject"),
-                _urlEncoder.Encode(email),
-                unformattedKey);
-        }
-
+             
         #endregion
     }
 }
