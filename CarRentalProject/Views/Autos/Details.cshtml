@@ -1,32 +1,56 @@
 ﻿@model CarRentalProject.Models.Auto
 @inject CarRentalProject.Data.ApplicationDbContext Context
+@inject SignInManager<ApplicationUser> SignInManager
 
 @{
     Layout = null;
-    ViewData["Title"] = "Details";
 }
 
 <head>
 
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="~/css/eventCalendar.css">
-    <link rel="stylesheet" href="~/css/eventCalendar_theme_responsive.css">
+    
 </head>
-<h2>Details</h2>
+
 
 
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Free Cars-Online Website Template | New :: w3layouts</title>
+    <title>Car Details</title>
     <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href='//fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="~/css/eventCalendar.css">
+    <link rel="stylesheet" href="~/css/eventCalendar_theme_responsive.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 
 
 </head>
 <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">CarRentalProject</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                </ul>
+                @await Html.PartialAsync("_LoginPartial")
+            </div>
+        </div>
+    </nav>
     <div class="header-bg">
         <div class="wrap">
             <div class="h-bg">
@@ -38,7 +62,7 @@
                             <div class="logo">
                                 <img src="~/images/logo1.png" alt="" />
                             </div>
-                           
+                            
                             <div class="clear"></div>
                         </div>
                     </div>
@@ -57,6 +81,14 @@
                                             <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.ImageData))" />
                                            }
                                         </div>
+                                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("admin"))
+                                        {
+                                            <div>
+                                                <a asp-action="Edit" asp-route-id="Model.ID">Edit</a>|
+                                                <a asp-action="Delete" asp-route-id="Model.ID">Delete</a>
+                                            </div>
+
+                                        }
                                         <div class="grid span_2_of_3">
                                             <div class="price">@Html.DisplayFor(model => model.PricePerDay) $/day </div>
                                             <div class="clear"></div>
@@ -99,7 +131,7 @@
                                 <div class="first-list">
                                     <div class="div_2"><a asp-controller="Autos" asp-action="Index">Cars</a></div>
                                     <div class="div_img">
-                                        <img src="images/car1.jpg" alt="Cars" title="Cars" width="60" height="39">
+                                        <img src="~/images/car1.jpg" alt="Cars" title="Cars" width="60" height="39">
                                     </div><div class="clear"></div>
                                 </div>
                             </div>

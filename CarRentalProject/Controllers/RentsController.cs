@@ -9,6 +9,8 @@ using CarRentalProject.Data;
 using CarRentalProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Net.Mail;
+using System.Net;
 
 namespace CarRentalProject.Controllers
 {
@@ -175,6 +177,7 @@ namespace CarRentalProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        
         private bool RentsExists(int id)
         {
             return _context.Rents.Any(e => e.ID == id);

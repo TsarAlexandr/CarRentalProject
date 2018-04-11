@@ -54,9 +54,13 @@
             </tr>
         }
     </tbody>
-   
-    
- </table>
+
+</table>
+<form asp-action="SendOrder">
+    <div class="form-group">
+        <input type="submit" value="Send Orders" class="btn btn-default" />
+    </div>
+</form>
 
 @*@section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")

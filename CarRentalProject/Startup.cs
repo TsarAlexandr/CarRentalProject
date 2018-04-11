@@ -83,6 +83,7 @@ namespace CarRentalProject
 
             string adminName = "admin";
             string password = "14C++Dlyalohov88";
+            string email = "kripton98@mail.ru";
             if (await roleManager.FindByNameAsync("admin") == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("admin"));
@@ -93,7 +94,7 @@ namespace CarRentalProject
             }
             if (await userManager.FindByNameAsync(adminName) == null)
             {
-                ApplicationUser admin = new ApplicationUser { UserName = adminName };
+                ApplicationUser admin = new ApplicationUser { UserName = adminName, Email=email };
                 IdentityResult result = await userManager.CreateAsync(admin, password);
                 if (result.Succeeded)
                 {
