@@ -24,7 +24,7 @@ namespace CarRentalProject.Controllers
             _context = context;
             _userManager = usr;
         }
-
+        [Authorize(Roles="admin")]
         // GET: Rents
         public async Task<IActionResult> Index()
         {
@@ -71,12 +71,21 @@ namespace CarRentalProject.Controllers
             foreach (var rent in otherRents)
             {
                 if (((rents.StartDate >= rent.StartDate) && (rents.StartDate <= rent.EndDate)) ||
-                    ((rents.EndDate >= rent.StartDate) && (rents.EndDate <= rent.EndDate)))
+                    ((rents.EndDate >= rent.StartDate) && (rents.EndDate <= rent.EndDate)) ||
+                    ((rents.StartDate <= rent.StartDate) && (rents.EndDate >= rent.EndDate)))
                 {
-                    ModelState.AddModelError("StartDate", "Unfortunatly, this date are taken. Please select another one");
+                    ModelState.AddModelError("EndDate", "Unfortunatly, this date are taken. Please select another one");
                     break;
                 }
+
             }
+
+            if (rents.EndDate < rents.StartDate)
+            {
+                ModelState.AddModelError("EndDate", "Invalid data input");
+
+            }
+
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
