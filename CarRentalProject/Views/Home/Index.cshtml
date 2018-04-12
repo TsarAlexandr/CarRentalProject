@@ -1,5 +1,7 @@
-﻿@{
+﻿@inject CarRentalProject.Data.ApplicationDbContext Context
+@{
     ViewData["Title"] = "Home Page";
+    var cars = Context.Auto.ToList();
 }
 
 <!DOCTYPE HTML>
@@ -52,10 +54,8 @@
                                     <span class="arrow previous"></span>
                                     <span class="arrow next"></span>
                                 </div>
-                               
-                                    
-                                
                             </div>
+                           
                             <div class="header-para">
                                 <div class="categories">
                                     <div class="list-categories">
@@ -72,16 +72,26 @@
                                     </div>
                                     <div class="section group example">
                                         <div class="col_1_of_2 span_1_of_2">
-                                            <img src="~/images/pic21.jpg" alt="" />
-                                            <img src="~/images/pic24.jpg" alt="" />
-                                            <img src="~/images/pic25.jpg" alt="" />
-                                            <img src="~/images/pic27.jpg" alt="" />
+                                            @for (var i = @cars.Count - 1; i >= (@cars.Count - 9) && i >= 0; i -= 2)
+                                            {
+                                                @if (@cars[i].ImageData != null)
+                                                {
+                                                    <a asp-controller="Autos"  asp-action="Details" asp-route-id="@cars[i].ID">
+                                                        <img src="data:image/jpg;base64,@(Convert.ToBase64String(@cars[i].ImageData))" />
+                                                    </a>
+                                                }
+                                            }
                                         </div>
                                         <div class="col_1_of_2 span_1_of_2">
-                                            <img src="~/images/pic22.jpg" alt="" />
-                                            <img src="~/images/pic23.jpg" alt="" />
-                                            <img src="~/images/pic26.jpg" alt="" />
-                                            <img src="~/images/pic28.jpg" alt="" />
+                                            @for (var i = @cars.Count - 2; i >= (@cars.Count - 9) && i >= 0; i -= 2)
+                                            {
+                                                @if (@cars[i].ImageData != null)
+                                                {
+                                                    <a asp-controller="Autos" asp-route-id="@cars[i].ID">
+                                                        <img src="data:image/jpg;base64,@(Convert.ToBase64String(@cars[i].ImageData))" />
+                                                    </a>
+                                                }
+                                            }
                                         </div><div class="clear"></div>
                                     </div>
                                     <div class="clear"></div>

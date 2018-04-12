@@ -32,6 +32,15 @@ namespace CarRentalProject.Models
         
     }
 
+    public class CarModel
+    {
+        public int ID { get; set; }
+        public EBrand Brand { get; set; }
+        [Required]
+        [MaxLength(12),MinLength(3)]
+        public string Model { get; set; }
+    }
+
     public enum EColor
     {
         Black,
@@ -56,4 +65,6 @@ namespace CarRentalProject.Models
         Hyndai,
         Honda
     }
+
+
 }

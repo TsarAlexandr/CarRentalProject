@@ -26,5 +26,7 @@ namespace CarRentalProject.Data
         public DbSet<CarRentalProject.Models.Auto> Auto { get; set; }
 
         public DbSet<CarRentalProject.Models.Rents> Rents { get; set; }
+
+        public DbSet<CarRentalProject.Models.CarModel> CarModel { get; set; }
     }
 }

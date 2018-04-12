@@ -396,8 +396,9 @@ span.actual {
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	background: #F5F5F5;
-	float:right;
+	float:left;
 	padding: 7px 20px;
+    margin:5px 2px;
 	color:#D54F30;
 	font-size: 1em;
 	font-weight: bold;
@@ -538,8 +539,10 @@ span.actual {
 	width: 68.1%;
 }
 .images_3_of_1  img {
-	max-width:100%;
-	display:block;
+	
+    width: 300px;
+    height:auto;
+	display:inline-grid;
 }
 .span_2_of_3  h3{
 	color:#D54F30;

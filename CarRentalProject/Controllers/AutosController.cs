@@ -39,6 +39,30 @@ namespace CarRentalProject.Controllers
 
         }
 
+        public IActionResult ModelCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> ModelCreate([Bind("ID,Brand,Model")] CarModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(model);
+                await _context.SaveChangesAsync();
+                return View();
+            }
+
+            return View();
+        }
+
+        public IActionResult Back()
+        {
+            return RedirectToAction("Index","Home");
+        }
         // GET: Autos/Details/5
         public async Task<IActionResult> Details(int? id)
         {

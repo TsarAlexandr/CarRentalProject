@@ -4,6 +4,8 @@
 
 @{
     Layout = null;
+    var cars = Context.Auto.ToList();
+
 }
 
 <head>
@@ -80,7 +82,12 @@
                                            {
                                             <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.ImageData))" />
                                            }
+                                            
+                                            <div>
+                                                <a asp-controller="Rents" asp-action="Create" asp-route-id="@Model.ID" class="button">Get Rent</a>
+                                            </div>
                                         </div>
+                                        <div id="eventCalendar"  style="width: 300px; float:right; margin: 5px 2px;"></div>
                                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("admin"))
                                         {
                                             <div>
@@ -111,12 +118,9 @@
                                                     <div class="left">Color:</div>
                                                     <div class="right">@Html.DisplayFor(model => model.Color)</div>
                                                 </div>
-                                                <div>
-                                                    <a asp-controller="Rents" asp-action="Create" asp-route-id="@Model.ID" class="button">Get Rent</a>
-                                                </div>
+                                                
                                             </div>
                                             </div><div class="clear"></div>
-                                        <div id="eventCalendar" style="width: 300px; margin: 5px 2px;"></div>
                                         
                                     </div>
                                     
@@ -141,18 +145,29 @@
                             </div>
                             <div class="section group example">
                                 <div class="col_1_of_2 span_1_of_2">
-                                    <img src="~/images/pic21.jpg" alt="" />
-                                    <img src="~/images/pic24.jpg" alt="" />
-                                    <img src="~/images/pic25.jpg" alt="" />
-                                    <img src="~/images/pic27.jpg" alt="" />
+                                    @for (var i = @cars.Count - 1; i >= (@cars.Count - 9) && i >= 0; i -= 2)
+                                    {
+                                        @if (@cars[i].ImageData != null)
+                                        {
+                                            <a asp-controller="Autos" asp-action="Details" asp-route-id="@cars[i].ID">
+                                                <img src="data:image/jpg;base64,@(Convert.ToBase64String(@cars[i].ImageData))" />
+                                            </a>
+                                        }
+                                    }
                                 </div>
                                 <div class="col_1_of_2 span_1_of_2">
-                                    <img src="~/images/pic22.jpg" alt="" />
-                                    <img src="~/images/pic23.jpg" alt="" />
-                                    <img src="~/images/pic26.jpg" alt="" />
-                                    <img src="~/images/pic28.jpg" alt="" />
+                                    @for (var i = @cars.Count - 2; i >= (@cars.Count - 9) && i >= 0; i -= 2)
+                                    {
+                                        @if (@cars[i].ImageData != null)
+                                        {
+                                            <a asp-controller="Autos" asp-route-id="@cars[i].ID">
+                                                <img src="data:image/jpg;base64,@(Convert.ToBase64String(@cars[i].ImageData))" />
+                                            </a>
+                                        }
+                                    }
                                 </div><div class="clear"></div>
                             </div>
+
                             <div class="clear"></div>
                         </div>
                     </div>
