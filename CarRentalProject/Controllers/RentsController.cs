@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.AspNetCore.Routing;
 
 namespace CarRentalProject.Controllers
 {
@@ -65,38 +66,45 @@ namespace CarRentalProject.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int id, [Bind("StartDate,EndDate")] Rents rents)
+        public async Task<IActionResult> Create(int id, DateTime startDate, DateTime endDate)
         {
+
             var otherRents = _context.Rents.Where(x => x.CarID == id);
             foreach (var rent in otherRents)
             {
-                if (((rents.StartDate >= rent.StartDate) && (rents.StartDate <= rent.EndDate)) ||
-                    ((rents.EndDate >= rent.StartDate) && (rents.EndDate <= rent.EndDate)) ||
-                    ((rents.StartDate <= rent.StartDate) && (rents.EndDate >= rent.EndDate)))
+                if (((startDate >= rent.StartDate) && (startDate <= rent.EndDate)) ||
+                    ((endDate >= rent.StartDate) && (endDate <= rent.EndDate)) ||
+                    ((startDate <= rent.StartDate) && (endDate >= rent.EndDate)))
                 {
-                    ModelState.AddModelError("EndDate", "Unfortunatly, this date are taken. Please select another one");
+                    ModelState.AddModelError("", "Unfortunatly, this date are taken. Please select another one");
+                    TempData["message"] = "Unfortunatly, this date are taken. Please select another one";
                     break;
                 }
 
             }
 
-            if (rents.EndDate < rents.StartDate)
+            if (endDate < startDate)
             {
-                ModelState.AddModelError("EndDate", "Invalid data input");
-
+                ModelState.AddModelError("", "Invalid data input");
+                TempData["message"] = "Invalid data input";
             }
 
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
+
+                var rents = new Rents();
                 rents.CarID = id;
-                
+                rents.StartDate = startDate;
+                rents.EndDate = endDate;
                 rents.UserID = user?.Id;
                 _context.Add(rents);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","Autos");
+                TempData["message"] = "The car was rented succesfull!";
+                return RedirectToAction("Index", "Autos");
             }
-            return View(rents);
+            return RedirectToAction("Details", "Autos", new {id = id });
+            
         }
 
 

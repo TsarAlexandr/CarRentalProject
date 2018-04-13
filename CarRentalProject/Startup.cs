@@ -33,6 +33,7 @@ namespace CarRentalProject
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            
 
             services.AddMvc();
         }
@@ -54,6 +55,8 @@ namespace CarRentalProject
             IServiceScope scope = scopeFactory.CreateScope();
 
             app.UseStaticFiles();
+
+            
 
             app.UseAuthentication();
 

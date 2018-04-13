@@ -2,6 +2,8 @@
 @inject CarRentalProject.Data.ApplicationDbContext Context
 @inject SignInManager<ApplicationUser> SignInManager
 
+
+
 @{
     Layout = null;
     var cars = Context.Auto.ToList();
@@ -41,7 +43,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">CarRentalProject</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Car Rental</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -52,6 +54,7 @@
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
+        
     </nav>
     <div class="header-bg">
         <div class="wrap">
@@ -83,46 +86,48 @@
                                             <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.ImageData))" />
                                            }
                                             
-                                            <div>
-                                                <a asp-controller="Rents" asp-action="Create" asp-route-id="@Model.ID" class="button">Get Rent</a>
-                                            </div>
+                                            
                                         </div>
                                         <div id="eventCalendar"  style="width: 300px; float:right; margin: 5px 2px;"></div>
-                                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("admin"))
-                                        {
-                                            <div>
-                                                <a asp-action="Edit" asp-route-id="Model.ID">Edit</a>|
-                                                <a asp-action="Delete" asp-route-id="Model.ID">Delete</a>
-                                            </div>
+                                        <form asp-controller="Rents" asp-action="Create" asp-route-id="@Model.ID" method="post">
+                                            @Html.Partial("_Create")
+                                            <h3 style="color:darkred;">@TempData["message"]</h3>
+                                        </form>
+                                            @if (SignInManager.IsSignedIn(User) && User.IsInRole("admin"))
+                                            {
+                                                <div>
+                                                    <a asp-action="Edit" asp-route-id="Model.ID">Edit</a>|
+                                                    <a asp-action="Delete" asp-route-id="Model.ID">Delete</a>
+                                                </div>
 
-                                        }
-                                        <div class="grid span_2_of_3">
-                                            <div class="price">@Html.DisplayFor(model => model.PricePerDay) $/day </div>
-                                            <div class="clear"></div>
-                                            <div class="features_table">
-                                                <div class="line">
-                                                    <div class="left">Passengers:</div>
-                                                    <div class="right">@Html.DisplayFor(model => model.PassengerCount)</div>
+                                            }
+                                            <div class="grid span_2_of_3">
+                                                <div class="price">@Html.DisplayFor(model => model.PricePerDay) $/day </div>
+                                                <div class="clear"></div>
+                                                <div class="features_table">
+                                                    <div class="line">
+                                                        <div class="left">Passengers:</div>
+                                                        <div class="right">@Html.DisplayFor(model => model.PassengerCount)</div>
+                                                    </div>
+                                                    <div class="line">
+                                                        <div class="left">Year:</div>
+                                                        <div class="right">@Html.DisplayFor(model => model.Year)</div>
+                                                    </div>
+
+                                                    <div class="line">
+                                                        <div class="left">Volume:</div>
+                                                        <div class="right">@Html.DisplayFor(model => model.Volume) cm³ </div>
+                                                    </div>
+
+                                                    <div class="line">
+                                                        <div class="left">Color:</div>
+                                                        <div class="right">@Html.DisplayFor(model => model.Color)</div>
+                                                    </div>
+
                                                 </div>
-                                                <div class="line">
-                                                    <div class="left">Year:</div>
-                                                    <div class="right">@Html.DisplayFor(model => model.Year)</div>
-                                                </div>
-                                                
-                                                <div class="line">
-                                                    <div class="left">Volume:</div>
-                                                    <div class="right">@Html.DisplayFor(model => model.Volume) cm³ </div>
-                                                </div>
-                                                
-                                                <div class="line">
-                                                    <div class="left">Color:</div>
-                                                    <div class="right">@Html.DisplayFor(model => model.Color)</div>
-                                                </div>
-                                                
-                                            </div>
                                             </div><div class="clear"></div>
-                                        
-                                    </div>
+
+</div>
                                     
 
 
