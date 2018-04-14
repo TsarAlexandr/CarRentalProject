@@ -57,7 +57,16 @@
             @Html.DisplayNameFor(model => model.ImageData)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ImageData)
+            
+            @if (Model.ImageData == null)
+            {<img src="~/images/no_image.jpg" style="width:250px; height:auto"/>}
+
+            else
+            {
+                <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.ImageData))" style="width:250px; height:auto"  />
+
+            }
+            
         </dd>
     </dl>
     

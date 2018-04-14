@@ -427,6 +427,8 @@ span.actual {
 }
 .images_1_of_3  img {
 	max-width:100%;
+    width:auto;
+    height:150px;
 	display:block;
 }
 .images_1_of_3  h3{

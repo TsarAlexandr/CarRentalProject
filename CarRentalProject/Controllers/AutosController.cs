@@ -9,13 +9,14 @@ using CarRentalProject.Data;
 using CarRentalProject.Models;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace CarRentalProject.Controllers
 {
     public class AutosController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        
         public AutosController(ApplicationDbContext context)
         {
             _context = context;
@@ -98,8 +99,11 @@ namespace CarRentalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+             
                 if (auto.ImageMimeType != null)
                 {
+                   
+
                     byte[] imageData = null;
                     // считываем переданный файл в массив байтов
                     using (var binaryReader = new BinaryReader(auto.ImageMimeType.OpenReadStream()))
@@ -107,8 +111,10 @@ namespace CarRentalProject.Controllers
                         imageData = binaryReader.ReadBytes((int)auto.ImageMimeType.Length);
                     }
                     // установка массива байтов
-                    auto.ImageData = imageData;
+                   auto.ImageData = imageData;
                 }
+                
+
                 _context.Add(auto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -126,6 +132,7 @@ namespace CarRentalProject.Controllers
             }
 
             var auto = await _context.Auto.SingleOrDefaultAsync(m => m.ID == id);
+            
             if (auto == null)
             {
                 return NotFound();
@@ -139,9 +146,10 @@ namespace CarRentalProject.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Brand,Model,PassengerCount,PricePerDay,Year,Color,Volume,ImageData")] Auto auto)
+        public async Task<IActionResult> Edit(int id, EBrand Brand, string Model, int PassengerCount, int PricePerDay, int Year, EColor Color, int Volume, IFormFile ImageMimeType)
         {
-            if (id != auto.ID)
+            var car = _context.Auto.Find(id);
+            if (car == null)
             {
                 return NotFound();
             }
@@ -150,12 +158,32 @@ namespace CarRentalProject.Controllers
             {
                 try
                 {
-                    _context.Update(auto);
+                    car.Brand = Brand;
+                    car.Color = Color;
+                    car.PassengerCount = PassengerCount;
+                    car.PricePerDay = PricePerDay;
+                    car.Model = Model;
+                    car.Volume = Volume;
+                    car.Year = Year;
+                    if (ImageMimeType != null)
+                    {
+                        byte[] imageData = null;
+                        // считываем переданный файл в массив байтов
+                        using (var binaryReader = new BinaryReader(ImageMimeType.OpenReadStream()))
+                        {
+                            imageData = binaryReader.ReadBytes((int)ImageMimeType.Length);
+                        }
+                        // установка массива байтов
+                        car.ImageData = imageData;
+                    }
+                   
+                    
+                    
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AutoExists(auto.ID))
+                    if (!AutoExists(id))
                     {
                         return NotFound();
                     }
@@ -166,7 +194,7 @@ namespace CarRentalProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(auto);
+            return View(car);
         }
 
         // GET: Autos/Delete/5

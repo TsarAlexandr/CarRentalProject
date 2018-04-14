@@ -66,9 +66,13 @@
 {
     <div class="grid_1_of_3 images_1_of_3">
         <div class="grid_1">
-            @if (item.ImageData != null)
-                {
+            @if (item.ImageData == null)
+            {<img src="~/images/no_image.jpg" />}
+
+            else
+            {
                 <img src="data:image/jpg;base64,@(Convert.ToBase64String(item.ImageData))" />
+
             }
             <div class="grid_desc">
                 <p class="title"><span>@Html.DisplayFor(modelItem => item.Brand)</span> <span>@Html.DisplayFor(modelItem => item.Model) </span></p>
